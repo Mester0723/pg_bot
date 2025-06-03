@@ -2,7 +2,11 @@ from random import randint
 import requests
 
 class Pokemon:
+
+    # Словари для хранения покемонов и достижений
     pokemons = {}
+    achievements = {}
+
     # Инициализация объекта (конструктор)
     def __init__(self, pokemon_trainer):
 
@@ -16,8 +20,44 @@ class Pokemon:
         self.defense = randint(10, 80)
         self.type = self.get_type()
         self.abilities = self.get_abilities()
+        self.level = 1
+        self.exp = 0
+        self.feed_count = 0
+        Pokemon.achievements.setdefault(pokemon_trainer, [])
 
         Pokemon.pokemons[pokemon_trainer] = self
+
+    # Метод для кормления покемона
+    def feed(self, food=10):
+        self.hp = min(self.hp + food, 200)
+        self.feed_count += 1
+        self.exp += 5
+        self.check_level_up()
+        self.check_achievements()
+        return f"{self.name} покормлен! HP: {self.hp}, опыт: {self.exp}"
+
+    # Метод для проверки повышения уровня
+    def check_level_up(self):
+        required_exp = self.level * 20
+        while self.exp >= required_exp:
+            self.exp -= required_exp
+            self.level += 1
+            self.attack += 5
+            self.defense += 3
+            self.hp = min(self.hp + 10, 200)
+            required_exp = self.level * 20
+
+    # Метод для проверки и выдачи достижений
+    def check_achievements(self):
+        ach = Pokemon.achievements[self.pokemon_trainer]
+        if self.feed_count >= 10 and "Сытый покемон" not in ach:
+            ach.append("Сытый покемон")
+        if self.level >= 5 and "Пятый уровень!" not in ach:
+            ach.append("Пятый уровень!")
+
+    # Получить список достижений
+    def get_achievements(self):
+        return Pokemon.achievements[self.pokemon_trainer]
 
     # Метод для получения картинки покемона через API
     def get_img(self):
