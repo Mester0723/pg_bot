@@ -2,10 +2,6 @@ from random import randint
 import requests
 
 class Pokemon:
-<<<<<<< HEAD
-=======
-
->>>>>>> dad0949daf1e3887a7b6b22400ac611b60d699a3
     # Словари для хранения покемонов и достижений
     pokemons = {}
     achievements = {}
@@ -13,35 +9,23 @@ class Pokemon:
     # Инициализация объекта (конструктор)
     def __init__(self, pokemon_trainer):
 
-<<<<<<< HEAD
         self.pokemon_trainer = pokemon_trainer            
-=======
-        self.pokemon_trainer = pokemon_trainer   
->>>>>>> dad0949daf1e3887a7b6b22400ac611b60d699a3
 
         self.pokemon_number = randint(1,1000)
         self.img = self.get_img()
         self.name = self.get_name()
         self.hp = randint(50, 150)
-<<<<<<< HEAD
         self.attack_power = randint(20, 100)
-=======
-        self.attack = randint(20, 100)
->>>>>>> dad0949daf1e3887a7b6b22400ac611b60d699a3
         self.defense = randint(10, 80)
         self.type = self.get_type()
         self.abilities = self.get_abilities()
         self.level = 1
-<<<<<<< HEAD
         self.power = randint(10, 50)
-=======
->>>>>>> dad0949daf1e3887a7b6b22400ac611b60d699a3
         self.exp = 0
         self.feed_count = 0
         Pokemon.achievements.setdefault(pokemon_trainer, [])
 
         Pokemon.pokemons[pokemon_trainer] = self
-<<<<<<< HEAD
         
 
     def __init__(enemy, pokemon_trainer):
@@ -59,8 +43,6 @@ class Pokemon:
         enemy.abilities = enemy.get_abilities()
 
         Pokemon.pokemons[pokemon_trainer] = enemy
-=======
->>>>>>> dad0949daf1e3887a7b6b22400ac611b60d699a3
 
     # Метод для кормления покемона
     def feed(self, food=10):
@@ -134,7 +116,6 @@ class Pokemon:
             abilities = data.get('abilities', [])
             return [a['ability']['name'] for a in abilities]
         return []
-<<<<<<< HEAD
     
     # Метод для атаки покемона
     def attack(self, enemy):
@@ -148,8 +129,6 @@ class Pokemon:
         else:
             enemy.hp = 0
             return f"Победа @{self.pokemon_trainer} над @{enemy.pokemon_trainer}!"
-=======
->>>>>>> dad0949daf1e3887a7b6b22400ac611b60d699a3
 
     # Метод класса для получения информации
     def info(self):
@@ -157,11 +136,7 @@ class Pokemon:
             f"👾 Имя покемона: {self.name}\n"
             f"🔷 Тип: {self.type}\n"
             f"❤️ Здоровье: {self.hp}\n"
-<<<<<<< HEAD
             f"⚔️ Атака: {self.attack_power}\n"
-=======
-            f"⚔️ Атака: {self.attack}\n"
->>>>>>> dad0949daf1e3887a7b6b22400ac611b60d699a3
             f"🛡️ Защита: {self.defense}\n"
             f"🧠 Способности: {self.abilities}"
         )
@@ -169,7 +144,6 @@ class Pokemon:
     # Метод класса для получения картинки покемона
     def show_img(self):
         return self.img
-<<<<<<< HEAD
     
 # Создание подклассов для волшебника
 class Wizard(Pokemon):
@@ -184,5 +158,3 @@ class Fighter(Pokemon):
         result = super().attack(enemy)
         self.power -= super_power
         return result + f"Покемон-Боец наносит мощный удар!"
-=======
->>>>>>> dad0949daf1e3887a7b6b22400ac611b60d699a3
