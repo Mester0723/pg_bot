@@ -9,28 +9,6 @@ Telegram-бот для игры с покемонами: создавайте, �
 - Сражения между покемонами
 - Достижения и уровни
 
-## Установка
-
-1. Клонируйте репозиторий:
-   ```
-   git clone https://github.com/Mester0723/pg_bot.git
-   cd pg_bot
-   ```
-2. Установите зависимости:
-   ```
-   pip install -r requirements.txt
-   ```
-3. В `config.py` укажите свой Telegram Bot Token:
-   ```python
-   token = "ВАШ_ТОКЕН"
-   ```
-
-## Быстрый старт
-
-```
-python main.py
-```
-
 ## Команды
 
 - `/go` — создать покемона
@@ -49,4 +27,4 @@ python main.py
 
 ## Важно
 
-- Не публикуйте токен Telegram-
+- Не публикуйте токен Telegram!
