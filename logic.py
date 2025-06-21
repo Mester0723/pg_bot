@@ -180,6 +180,11 @@ class Fighter(Pokemon):
         super_power = randint(100, 1000)
         self.power += super_power
         result = super().attack(enemy)
+<<<<<<< HEAD
         if result is None:
             result = ""
         return result + "Покемон-Боец наносит мощный удар!"
+=======
+        self.power -= super_power
+        return result + f"Покемон-Боец наносит мощный удар!"
+>>>>>>> 5373d4a06ff51fc911156e2fa4141136964eb5c8
