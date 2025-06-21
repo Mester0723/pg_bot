@@ -1,16 +1,10 @@
 import telebot
 from config import token
 from logic import Pokemon, Wizard, Fighter
-<<<<<<< HEAD
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from random import randint
 
 bot = telebot.TeleBot(token)
-=======
-from random import randint
-
-bot = telebot.TeleBot(token)\
->>>>>>> 5373d4a06ff51fc911156e2fa4141136964eb5c8
 
 if __name__ == '__main__':
     wizard = Wizard("username1")
@@ -48,7 +42,6 @@ def go(message):
 @bot.message_handler(commands=['attack'])
 def attack_pok(message):
     if message.reply_to_message:
-<<<<<<< HEAD
         attacker = message.from_user.username
         defender = message.reply_to_message.from_user.username
         if not attacker or not defender:
@@ -57,21 +50,12 @@ def attack_pok(message):
         if defender in Pokemon.pokemons and attacker in Pokemon.pokemons:
             enemy = Pokemon.pokemons[defender]
             your_pok = Pokemon.pokemons[attacker]
-=======
-        if message.reply_to_message.from_user.username in Pokemon.pokemons.keys() and message.from_user.username in Pokemon.pokemons.keys():
-            enemy = Pokemon.pokemons[message.reply_to_message.from_user.username]
-            your_pok = Pokemon.pokemons[message.from_user.username]
->>>>>>> 5373d4a06ff51fc911156e2fa4141136964eb5c8
             res = your_pok.attack(enemy)
             bot.send_message(message.chat.id, res)
         else:
             bot.send_message(message.chat.id, "🚫 Сражаться можно только с покемонами")
     else:
-<<<<<<< HEAD
         bot.send_message(message.chat.id, "🚫 Чтобы атаковать, нужно ответить на сообщения того, кого хочешь атаковать")
-=======
-            bot.send_message(message.chat.id, "🚫 Чтобы атаковать, нужно ответить на сообщения того, кого хочешь атаковать")
->>>>>>> 5373d4a06ff51fc911156e2fa4141136964eb5c8
 
 # Кормление покемона
 @bot.message_handler(commands=['feed'])
@@ -123,7 +107,6 @@ def info(message):
     else:
         bot.send_message(message.chat.id, "🚫 Сначала создай покемона с помощью команды /go")
 
-<<<<<<< HEAD
 quiz_data = [
     {
         "question": "❓ Какой покемон является водным типом?",
@@ -193,8 +176,6 @@ def handle_quiz_answer(call):
 
     send_quiz_question(call.message.chat.id, q_num + 1)
 
-=======
->>>>>>> 5373d4a06ff51fc911156e2fa4141136964eb5c8
 # Секретная команда
 @bot.message_handler(commands=['ilikechocolatesomuchandilikesecretcommandsbecauseitiscool'])
 def secret(message):
