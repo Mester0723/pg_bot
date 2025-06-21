@@ -1,4 +1,5 @@
 from random import randint
+from datetime import datetime, timedelta
 import requests
 
 class Pokemon:
@@ -23,6 +24,7 @@ class Pokemon:
         self.power = randint(10, 50)
         self.exp = 0
         self.feed_count = 0
+        self.last_feed_time = None
         Pokemon.achievements.setdefault(pokemon_trainer, [])
 
         Pokemon.pokemons[pokemon_trainer] = self
@@ -45,13 +47,35 @@ class Pokemon:
         Pokemon.pokemons[pokemon_trainer] = enemy
 
     # Метод для кормления покемона
-    def feed(self, food=10):
-        self.hp = min(self.hp + food, 200)
-        self.feed_count += 1
-        self.exp += 5
-        self.check_level_up()
-        self.check_achievements()
-        return f"{self.name} покормлен! HP: {self.hp}, опыт: {self.exp}"
+    def feed(self, feed_interval=20, hp_increase=10):
+        current_time = datetime.now()
+        if self.last_feed_time is None:
+            self.hp = min(self.hp + hp_increase, 200)
+            self.last_feed_time = current_time
+            next_feed_time = self.last_feed_time + timedelta(seconds=feed_interval)
+            return (
+                f"🍔 Покемон покормлен впервые!\n"
+                f"❤️ Текущее здоровье: {self.hp}\n"
+                f"⏰ Следующее кормление возможно после: {next_feed_time.strftime('%Y-%m-%d %H:%M:%S')}"
+            )
+        delta_time = timedelta(seconds=feed_interval)
+        if (current_time - self.last_feed_time) > delta_time:
+            self.hp = min(self.hp + hp_increase, 200)
+            self.last_feed_time = current_time
+            next_feed_time = self.last_feed_time + delta_time
+            return (
+                f"💓 Здоровье покемона увеличено.\n"
+                f"❤️ Текущее здоровье: {self.hp}\n"
+                f"⏰ Следующее кормление возможно после: {next_feed_time.strftime('%Y-%m-%d %H:%M:%S')}"
+            )
+        else:
+            next_feed_time = self.last_feed_time + delta_time
+            wait_seconds = int((next_feed_time - current_time).total_seconds())
+            return (
+                f"🚫 Рано кормить!\n"
+                f"🍔 Следующее кормление через {wait_seconds} секунд.\n"
+                f"⏰ Можно будет покормить после: {next_feed_time.strftime('%Y-%m-%d %H:%M:%S')}"
+            )
 
     # Метод для проверки повышения уровня
     def check_level_up(self):
