@@ -145,14 +145,14 @@ class Pokemon:
     def attack(self, enemy):
         if enemy.hp > self.power:
             enemy.hp -= self.power
-            return f"Сражение @{self.pokemon_trainer} с @{enemy.pokemon_trainer}"
+            return f"⚔️ Сражение @{self.pokemon_trainer} с @{enemy.pokemon_trainer}"
         if isinstance(enemy, Wizard):
             chance = randint(1, 5)
             if chance == 1:
-                return "Покемон-волшебник применил щит в сражении"
+                return "🔮 Покемон-волшебник применил щит в сражении"
         else:
             enemy.hp = 0
-            return f"Победа @{self.pokemon_trainer} над @{enemy.pokemon_trainer}!"
+            return f"🏆 Победа @{self.pokemon_trainer} над @{enemy.pokemon_trainer}!"
 
     # Метод класса для получения информации
     def info(self):
@@ -172,7 +172,7 @@ class Pokemon:
 # Создание подклассов для волшебника
 class Wizard(Pokemon):
     def attack(self, enemy):
-        return f"Покемон-Волшебник использует магическую атаку!", super().attack(enemy)
+        return f"🔮 Покемон-Волшебник использует магическую атаку!", super().attack(enemy)
 
 # Создание подклассов для бойца
 class Fighter(Pokemon):
@@ -182,4 +182,4 @@ class Fighter(Pokemon):
         result = super().attack(enemy)
         if result is None:
             result = ""
-        return result + "Покемон-Боец наносит мощный удар!"
+        return result + "✊ Покемон-Боец наносит мощный удар!"

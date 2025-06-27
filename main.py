@@ -2,6 +2,7 @@ import telebot
 from config import token
 from logic import Pokemon, Wizard, Fighter
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from collections import defaultdict
 from random import randint
 
 bot = telebot.TeleBot(token)
@@ -15,6 +16,8 @@ if __name__ == '__main__':
     print(fighter.info())
     print()
     print(fighter.attack(wizard))
+
+points = defaultdict(int)
 
 # Обработчик команды /start
 @bot.message_handler(commands=['start'])
@@ -162,17 +165,29 @@ def handle_quiz_answer(call):
     q_num = int(q_num)
     selected = int(selected)
     correct = quiz_data[q_num]["correct"]
+    explanation = quiz_data[q_num]["explanation"]
+    user_id = call.from_user.id
 
     # Удаляем сообщение с вопросом
     try:
         bot.delete_message(call.message.chat.id, call.message.message_id)
     except Exception:
-        pass  # Если сообщение уже удалено или нет прав
+        pass
 
     if selected == correct:
+        points[user_id] += 1
         bot.answer_callback_query(call.id, text="✅ Правильно!")
+        bot.send_message(
+            call.message.chat.id,
+            f"✅ {explanation}\n\n🏅 Твои очки: {points[user_id]}"
+        )
     else:
+        points[user_id] += 0
         bot.answer_callback_query(call.id, text="❌ Неправильно!")
+        bot.send_message(
+            call.message.chat.id,
+            f"❌ {explanation}\n\n🏅 Твои очки: {points[user_id]}"
+        )
 
     send_quiz_question(call.message.chat.id, q_num + 1)
 
